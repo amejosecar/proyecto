@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consulta de la API de aemet</title>
+  </head>
+  <body>
+    <h2>Consulta de la API de aemet - todas estaciones</h2>
+    <h3>Se visualiza en consola</h3>
+  </body>
+  <script>
+    // URL de la API
+    const apiKey =
+      "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbWVqb3NlY2FyQGdtYWlsLmNvbSIsImp0aSI6IjA2MmU5NjMyLWE3OTgtNGIyNS04YTY5LWVhNjg5YTc2Mzg3YiIsImlzcyI6IkFFTUVUIiwiaWF0IjoxNzQ0Nzg3MTI3LCJ1c2VySWQiOiIwNjJlOTYzMi1hNzk4LTRiMjUtOGE2OS1lYTY4OWE3NjM4N2IiLCJyb2xlIjoiIn0.xpYSAz5ti7uRh1Vjo1pchN1CjeXT2y8xoeJvKbX1lU8";
+    const url = `https://opendata.aemet.es/opendata/api/valores/climatologicos/inventarioestaciones/todasestaciones/?api_key=${apiKey}`;
+
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Error en la respuesta: " + response.status);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Datos recibidos de la API:", data);
+        // La respuesta tiene una propiedad llamada 'datos' con la URL donde están los datos reales
+        return fetch(data.datos);
+      })
+      .then((response) => response.json())
+      .then((estaciones) => {
+        console.log("Estaciones:", estaciones);
+      })
+      .catch((error) => {
+        console.error("Hubo un error en la petición:", error);
+      });
+  </script>
+</html>

@@ -1,0 +1,134 @@
+<!-- <!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ejemplo de Toast</title>
+    <link rel="stylesheet" href="/curso_css/css/toast.css" />
+  </head>
+  <body>
+    <button onclick="showToast()">Mostrar Toast</button>
+
+    <div id="toast" class="toast">¡Esto es una notificación Toast!</div>
+
+    <script>
+      function showToast() {
+        let toast = document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000); // Se oculta después de 3 segundos
+      }
+    </script>
+  </body>
+</html>
+ -->
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Toast para Acciones de Tareas</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #f0f0f0;
+      }
+      h1 {
+        text-align: center;
+      }
+      /* Estilos de los botones */
+      .btn {
+        padding: 10px 20px;
+        font-size: 16px;
+        margin: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: #fff;
+        transition: background-color 0.3s ease;
+      }
+      .btn-borrar {
+        background-color: #e74c3c;
+      }
+      .btn-borrar:hover {
+        background-color: #c0392b;
+      }
+      .btn-ejecutada {
+        background-color: #2ecc71;
+      }
+      .btn-ejecutada:hover {
+        background-color: #27ae60;
+      }
+      /* Estilos del Toast */
+      .toast {
+        visibility: hidden;
+        min-width: 250px;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        text-align: center;
+        padding: 16px;
+        border-radius: 5px;
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+        transition: opacity 0.5s ease, bottom 0.5s ease;
+        opacity: 0;
+      }
+      .toast.show {
+        visibility: visible;
+        opacity: 1;
+        bottom: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Acciones de Tareas</h1>
+
+    <!-- Botón para borrar tarea -->
+    <button class="btn btn-borrar" onclick="handleBorrar()">
+      Borrar Tarea
+    </button>
+
+    <!-- Botón para marcar tarea como ejecutada -->
+    <button class="btn btn-ejecutada" onclick="handleEjecutada()">
+      Ejecutada Tarea
+    </button>
+
+    <!-- Contenedor para el Toast -->
+    <div id="toast" class="toast"></div>
+
+    <script>
+      // Función que muestra el Toast con el mensaje recibido
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+
+        // Oculta el Toast después de 3 segundos
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      // Función para gestionar la acción de borrar tarea
+      function handleBorrar() {
+        // Aquí puedes agregar la lógica para borrar una tarea
+        showToast("Has borrado una tarea");
+      }
+
+      // Función para gestionar la acción de marcar tarea como ejecutada
+      function handleEjecutada() {
+        // Aquí puedes agregar la lógica para marcar la tarea como ejecutada
+        // Si deseas que el mensaje sea el mismo, déjalo así. Si no, cámbialo.
+        showToast("Has borrado una tarea");
+        // Ejemplo si se quisiera un mensaje distinto:
+        // showToast('Has marcado la tarea como ejecutada');
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.section {
+  margin-bottom: 30px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+}
+.sticky-header {
+  position: sticky; /* Activamos el posicionamiento pegajoso */
+  top: 0; /* Se pegará al borde superior del viewport (o contenedor con scroll) */
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  margin: 0; /* Quitamos márgenes por defecto del h2 */
+  z-index: 10; /* Para que esté sobre el contenido de la sección */
+}
+.content {
+  padding: 0 20px 20px 20px; /* Padding solo para el contenido */
+}
+.content p {
+  line-height: 1.6;
+}
+.elemento-no-posicionado {
+  /* position: static; (implícito) */
+  z-index: 100; /* ESTO NO TENDRÁ EFECTO */
+  background-color: red;
+}
+.elemento-posicionado {
+  position: relative; /* O absolute, fixed, sticky */
+  z-index: 10; /* ESTO SÍ TENDRÁ EFECTO */
+  background-color: blue;
+}
+
+/*
+  En este caso, el elemento con position: relative; tendrá un z-index de 10,
+  mientras que el elemento con position: static; (o no posicionado) no tendrá
+  efecto en el z-index, ya que su valor por defecto es auto.
+*/
+/* Ejemplo de z-index con elementos apilados */
+.contenedor {
+  position: relative; /* Padre crea contexto */
+  height: 250px;
+  border: 1px dashed grey;
+  margin-top: 30px;
+}
+.caja {
+  position: absolute; /* Todas son absolutas para superponerse */
+  width: 150px;
+  height: 150px;
+  font-size: 18px;
+  color: white;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 130px; /* Aprox. centrado vertical */
+}
+.caja1 {
+  background-color: dodgerblue;
+  top: 20px;
+  left: 20px;
+  z-index: 1;
+}
+.caja2 {
+  background-color: crimson;
+  top: 40px;
+  left: 70px;
+  z-index: 2; /* Valor más alto, estará encima de caja1 y caja3 */
+}
+.caja3 {
+  background-color: forestgreen;
+  top: 60px;
+  left: 120px;
+  /*z-index: auto; o z-index: 0;  Se apila según HTML después de negativos, antes de p
+    ositivos > 0 */
+}
+.caja4 {
+  background-color: darkorange;
+  top: 80px;
+  left: 170px;
+  z-index: -1; /* Valor negativo, estará debajo de todas las demás */
+}
+body {
+  margin: 0; /* Eliminar margen por defecto del body */
+  font-family: sans-serif;
+}
+.slide {
+  position: sticky; /* La clave del efecto */
+  top: 0; /* Pegar al borde superior cuando se alcance */
+  min-height: 100vh; /* ¡Fundamental! Cada slide ocupa al menos toda la altura del viewport */
+  box-sizing: border-box; /* Para que el padding no aumente la altura total más allá de 100vh si l
+    o usamos */
+  padding: 40px; /* Espacio interno para el contenido */
+  /* Estilos visuales para diferenciarlas (ejemplos) */
+  display: flex; /* Opcional: para centrar contenido fácilmente */
+  flex-direction: column; /* Opcional */
+  justify-content: center; /* Opcional */
+  align-items: center; /* Opcional */
+  text-align: center; /* Opcional */
+  color: white; /* Ejemplo */
+}
+/* Colores de fondo distintos para cada slide */
+.slide-1 {
+  background-color: #4a90e2; /* Azul */
+  /* z-index: 1; (Opcional, el orden HTML suele bastar) */
+}
+.slide-2 {
+  background-color: #50e3c2; /* Verde agua */
+  /* z-index: 2; */
+}
+.slide-3 {
+  background-color: #b8e986; /* Verde claro */
+  /* z-index: 3; */
+}
+/* Puedes añadir estilos específicos para el contenido de cada slide */
+.slide h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}

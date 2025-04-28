@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ejercicio JavaScript 08 abril 2025</title>
+    <script src="../js/menu.js" type="module"></script>
+  </head>
+  <body>
+    <h1>Ejercicios de JavaScritp</h1>
+    <div id="menu"></div>
+    <br />
+    <br />
+    <h2>Ejercicio 1: Contador de Clics con el evento SIN listener</h2>
+    <br />
+    <table>
+      <tr>
+        <td>
+          <img
+            src="../img/raton.jpg"
+            width="275px"
+            height="50%"
+            style="border: 1px solid black"
+          />
+        </td>
+        <td>
+          <p>
+            <strong>Ejercicio 1: Contador de Clics</strong><br />
+            <strong>Objetivo:</strong> Crear un botón que muestre cuántas veces
+            ha sido pulsado.<br />
+            <strong>Requisitos:</strong><br />
+            - Un botón con el texto "Haz clic aquí"<br />
+            - Un elemento (p, div, etc.) que muestre el contador<br />
+            - El contador debe incrementarse con cada clic<br />
+            - El texto debe mostrar "Has hecho clic X veces" (donde X es el
+            número)<br />
+            - Botón de reset que ponga el contador a 0
+            <br />
+          </p>
+        </td>
+      </tr>
+    </table>
+    <br />
+    <br />
+    <br />
+    <!--     // mostrar el contador -->
+    <div>Has hecho click <span id="resultado"></span> veces</div>
+    <br />
+
+    <!-- Botón para incrementar el contador -->
+    <button type="button" onclick="incrementar()">Haz clic aquí</button>
+    <!-- Botón para reiniciar el contador -->
+    <button onclick="reiniciar()">Reinicia el contador</button>
+    <br />
+    <br />
+
+  <script>
+    let contador = 0; // Inicializa el contador en 0
+    // Función para incrementar el contador y actualizar el texto
+    cambiaElemento("resultado");
+
+    function cambiaElemento(elemen) {
+      document.getElementById("resultado").innerText = `${contador}`; // Actualiza el texto del párrafo
+    }
+    const incrementar = function () {
+      contador++; // Incrementa el contador en 1
+      // Muestra el valor del contador en la consola
+      console.log("El contador va en " + contador);
+      // document.getElementById("resultado").innerText = `${contador}`; // Actualiza el texto del párrafo
+      cambiaElemento("resultado");
+    };
+    const reiniciar = function () {
+      contador = 0; // Incrementa el contador en 1
+      // Muestra el valor del contador en la consola
+      console.log("El contador va en " + contador);
+      // document.getElementById("resultado").innerText = `${contador}`; // Actualiza el texto del párrafo
+      cambiaElemento("resultado");
+    };
+
+  </script>
+</html>

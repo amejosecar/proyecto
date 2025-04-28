@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Selectores Básicos CSS</title>
+    <link rel="stylesheet" href="css/estilo.css" />
+  </head>
+  <body>
+    <nav id="navegacion-principal">
+      <a href="./index.html" class="enlace-nav enlace-activo">Inicio</a>
+      <a href="#" class="enlace-nav">menu_navegacion</a>
+      <a href="./parrafos.html" class="enlace-nav">Parrafos</a>
+      <a href="./atributos.html" class="enlace-nav">Selectores de Atributos</a>
+    </nav>
+    <h2>Bienvenido a nuestra página Atributos</h2>
+    <p>Este es contenido normal.</p>
+    <br />
+    <br />
+    <h3>Selector de Presencia de Atributo [attr]</h3>
+    <a href="#" title="Ir a la página principal">Inicio</a>
+    <!-- Tiene title -->
+    <a href="#">Acerca de</a>
+    <!-- No tiene title -->
+    <a href="#" title="Ver nuestros servicios">Servicios</a>
+    <!-- Tiene title -->
+    <img src="./img/logo.jpg" alt="Logotipo" title="Nuestro logo" />
+    <!-- También tiene title -->
+
+    <br />
+    <br />
+    <h3>Selector de Igualdad de Atributo [attr=value]</h3>
+    <a href="<https://www.ejemplo.com>">Sitio Ejemplo (Exacto)</a>
+    <!-- Coincide -->
+    <a href="<https://www.ejemplo.com/pagina>">Página Interna</a>
+    <!-- No coincide -->
+    <a href="<http://www.ejemplo.com>">Sitio Ejemplo (HTTP)</a>
+    <!-- No coincide (protocolo diferente) -->
+    <input type="text" name="usuario" />
+    <input type="submit" value="Enviar" />
+    <!-- Coincide -->
+
+    <br />
+    <br />
+    <h3>Selector de Atributo que Contiene una Palabra [attr~=value]</h3>
+    <div class="notificacion advertencia importante">Alerta 1</div>
+    <!-- Coincide -->
+    <p class="texto advertencia">Alerta 2</p>
+    <!-- Coincide -->
+    <span class="texto-advertencia">No Coincide (no es palabra completa)</span>
+    <br />
+    <span class="advertencia">Alerta 3</span>
+    <!-- Coincide -->
+  </body>
+</html>

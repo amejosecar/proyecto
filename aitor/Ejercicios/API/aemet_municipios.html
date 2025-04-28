@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mis predicciones</title>
+  </head>
+  <body>
+    <h1>La predicción del tiempo</h1>
+    <select name="provincia" id="provincia">
+      <option value="48">Bizkaia</option>
+      <option value="20">Gipuzkoa</option>
+      <option value="01">Álava</option>
+    </select>
+    <select name="municipio" id="municipio"></select>
+    <button type="button" id="peticion">Obtener datos</button>
+  </body>
+  <script>
+    const obten_municipios = function (provincia) {
+      fetch("./municipios.json")
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("No se pudo cargar el archivo JSON");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // console.log("Contenido de municipios.json:", data);
+          let provincia_seleccionada =
+            document.getElementById("provincia").value;
+          let datos_provincia = data.filter(
+            (m) => m.Provincia === provincia_seleccionada
+          );
+          selector_municipio = document.getElementById("municipio");
+          selector_municipio.innerHTML = "";
+          datos_provincia.forEach((municipio) => {
+            // console.log(municipio.Municipio, municipio.Codigo);
+            let opcion = document.createElement("option");
+            opcion.innerText = municipio.Municipio;
+            opcion.value = municipio.Codigo;
+            selector_municipio.appendChild(opcion);
+          });
+          console.log("Contenido de la provincia:", datos_provincia);
+        })
+        .catch((error) => {
+          console.error("Error al leer municipios.json:", error);
+        });
+    };
+
+    const hacer_peticion_api = function () {
+      console.log(document.getElementById("municipio").value);
+    };
+    document
+      .getElementById("provincia")
+      .addEventListener("change", obten_municipios);
+
+    document
+      .getElementById("peticion")
+      .addEventListener("click", hacer_peticion_api);
+  </script>
+</html>

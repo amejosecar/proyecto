@@ -1,0 +1,110 @@
+html {
+  scroll-behavior: smooth; /* Desplazamiento suave al hacer clic en enlaces de anclaje */
+}
+h1 {
+  color: navy;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+h2 {
+  color: rgb(21, 255, 0);
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+/* LINKS */
+/* Estilo para los enlaces normales */
+a {
+  color: #056421; /* Azul vibrante */
+  text-decoration: none; /* Sin subrayado */
+}
+
+/* Estilo para el hover (cuando el usuario pasa el cursor sobre el enlace) */
+a:hover {
+  color: #cc2e2e; /* Verde claro */
+  /* text-decoration: underline; Subrayado al pasar el cursor */
+}
+
+/* Estilo para los enlaces visitados */
+a:visited {
+  color: #056421; /* Púrpura para enlaces ya visitados */
+}
+
+/* Estilo para los enlaces activos (cuando se hace clic en ellos) */
+a:active {
+  color: #056421; /* Rojo mientras se hace clic */
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid rgb(140 140 140);
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+caption {
+  caption-side: bottom;
+  padding: 10px;
+  font-weight: bold;
+}
+
+thead {
+  background-color: rgba(177, 184, 216, 0.993);
+  color: rgb(12, 12, 12); /* Color del texto */
+  font-weight: bold; /* Negrita */
+  padding: 10px; /* Espaciado interno */
+  text-align: left; /* Alineación */
+}
+tfoot {
+  background-color: rgba(14, 221, 83, 0.363);
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+  padding: 8px 10px;
+}
+
+td:last-of-type {
+  text-align: center;
+}
+
+tbody > tr:nth-of-type(even) {
+  background-color: rgb(237 238 242);
+}
+
+tfoot th {
+  text-align: right;
+}
+
+tfoot td {
+  font-weight: bold;
+}
+.styled {
+  border: 0;
+  line-height: 2.5;
+  padding: 0 20px;
+  font-size: 1rem;
+  text-align: center;
+  color: #fff;
+  text-shadow: 1px 1px 1px #000;
+  border-radius: 10px;
+  background-color: rgb(170, 165, 165);
+  background-image: linear-gradient(
+    to top left,
+    rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.2) 30%,
+    rgba(0, 0, 0, 0)
+  );
+  box-shadow: inset 2px 2px 3px rgba(255, 255, 255, 0.6),
+    inset -2px -2px 3px rgba(0, 0, 0, 0.6);
+}
+
+.styled:hover {
+  background-color: rgba(170, 165, 165);
+}
+
+.styled:active {
+  box-shadow: inset -2px -2px 3px rgba(255, 255, 255, 0.6),
+    inset 2px 2px 3px rgba(0, 0, 0, 0.6);
+}

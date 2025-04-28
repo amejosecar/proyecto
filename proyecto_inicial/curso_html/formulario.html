@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es-ES">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Clase de Formulario" />
+    <link rel="stylesheet" href="../css/estilo.css" />
+    <script src="js/funciones.js"></script>
+
+    <title>Clase de Formulario</title>
+  </head>
+  <body>
+    <a href="index.html"> Retornar</a>
+    <h1>Formulario Americo</h1>
+
+    <!-- el form con post es para ver todo lo que comenta en la barra de direccion
+el form con get es para bloquear todo lo que comenta en la barra de direccion -->
+
+    <form action="" method="get">
+      <!-- nombnre -->
+      <label for="nombre">Nombre</label>
+      <input
+        type="text"
+        name="nombre"
+        id="nombre"
+        placeholder="introduzca el nombre"
+        required
+      />
+      <!-- apellido -->
+      <label for="apellido">Apellido</label>
+      <input
+        type="text"
+        name="apellido"
+        id="apellido"
+        placeholder="introduzca el apellido"
+        required
+      />
+      <!-- edad -->
+      <label for="edad">Edad</label>
+      <input
+        type="number"
+        name="edad"
+        id="edad"
+        placeholder="edad"
+        required
+        min="0"
+        max="120"
+        size="5"
+      />
+      <br />
+      <br />
+      <!-- codigo pais -->
+      <label for="codigo_pais">Código de país</label>
+      <input
+        type="text"
+        name="codigo_pais"
+        id="codigo_pais"
+        placeholder="+34"
+        required
+        pattern="^\+[0-9]{1,4}$"
+        size="4"
+      />
+      <!-- telefono -->
+      <label for="telefono">Telefono</label>
+      <input
+        type="tel"
+        name="telefono"
+        id="telefono"
+        placeholder="Escribe tu telefono"
+        required
+        pattern="[0-9]{9}"
+      />
+      <!-- listado de provicnias-->
+      <label for="provincia">Provincia</label>
+      <select name="provincia" id="provincia" required>
+        <option value="">Selecciona una provincia</option>
+        <option value="alava">Álava</option>
+        <option value="gipuzkua">Gipuzkua</option>
+        <option value="bizkaia">Bizkaia</option>
+      </select>
+      <br />
+      <br />
+      <!-- email -->
+      <label for="correo">Correo electrónico:</label>
+      <input
+        type="email"
+        name="correo"
+        id="correo"
+        placeholder="Escribe tu correo electrónico"
+        required
+        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+      />
+      <!-- password -->
+      <label for="contrasena">Contraseña: </label>
+      <input type="password" name="contrasena" id="" placeholder="contraeña" />
+
+      <br />
+      <br />
+
+      <!-- cuadro de rangos -->
+      <label for="rango">Porcentaje: </label>
+      <input type="range" name="rango" id="" min="10" max="100" value="50" />
+      <!-- cuadro de rangos con javascript-->
+      <label for="rango">Porcentaje con js: </label>
+      <input
+        type="range"
+        name="rango-js"
+        min="0"
+        max="100"
+        value="50"
+        step="10"
+        oninput="mostrarValor(this.value)"
+      />
+      <output id="valor-rango">50</output>
+
+      <input type="range" min="0" max="100" step="10" list="escala" />
+      <datalist id="escala">
+        <option value="0" label="0"></option>
+        <option value="25" label="25"></option>
+        <option value="50" label="50"></option>
+        <option value="75" label="75"></option>
+        <option value="100" label="100"></option>
+      </datalist>
+      <br />
+      <br />
+      <!-- cuadro de texto -->
+      <label for="text_observaciones">Escriba las observaciones: </label>
+      <br />
+      <textarea
+        name="description"
+        id="description"
+        cols="30"
+        rows="10"
+      ></textarea>
+      <br />
+      <br />
+      <!-- tipos de seleccion -->
+      <div>
+        <fieldset>
+          <legend>Idiomas que hablas</legend>
+
+          <label for="espanol">Español</label>
+          <input type="checkbox" name="espanol" id="" />
+          <label for="ingles"> | Inglés</label>
+          <input type="checkbox" name="ingles" id="" />
+          <label for="euskera"> | Euskera</label>
+          <input type="checkbox" name="euskera" id="" />
+        </fieldset>
+      </div>
+      <div>
+        <fieldset>
+          <legend>Tipos de tarifas</legend>
+          <label
+            >Premiun
+            <input type="radio" name="tarifa" id="" value="premiun" />
+          </label>
+          <label
+            >Economica
+            <input type="radio" name="tarifa" id="" value="economica" />
+          </label>
+          <label
+            >Gratis <input type="radio" name="tarifa" id="" value="gratis" />
+          </label>
+        </fieldset>
+      </div>
+      <div>
+        <fieldset>
+          <legend>Carnet:</legend>
+          <label>Coche: </label>
+          <input type="checkbox" name="carnet" id="" value="coche" />
+          <label>- Moto: </label>
+          <input type="checkbox" name="carnet" id="" value="moto" />
+          <label>- Camión: </label>
+          <input type="checkbox" name="carnet" id="" value="camion" />
+        </fieldset>
+      </div>
+      <!-- fechas - tiempo -->
+      <fieldset>
+        <legend>Fechas - horas - local time</legend>
+        <input type="date" name="fecha_dia" id="fecha_dia" />
+        <input type="time" name="" id="hora_dia" />
+        <input type="datetime-local" name="data_local" id="data_local" />
+      </fieldset>
+      <br />
+      <!-- color -->
+      <div>
+        <input type="color" name="color" id="color" />
+      </div>
+      <br />
+      <!-- seleccion de archivos -->
+      <fieldset>
+        <legend>Seleccion de archivos</legend>
+        Selecciona un solo archivo:
+        <input type="file" name="archivo" id="archivo" />
+        <br />
+        <br />
+        Selecciona un solo archivo pdf
+        <input type="file" name="archivo" id="archivo" accept=".pdf" />
+        <br />
+        <br />
+        Selecciona varios archivos
+        <input type="file" name="archivo" id="archivo" multiple />
+      </fieldset>
+      <br />
+
+      <!-- botones-->
+      <div>
+        <button type="submit">Enviar</button>
+        <button type="reset">borrar</button>
+      </div>
+    </form>
+
+    <script>
+      function mostrarValor(valor) {
+        document.getElementById("valor-rango").textContent = valor;
+      }
+    </script>
+  </body>
+</html>

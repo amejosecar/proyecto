@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consulta de la API de aemet</title>
+  </head>
+  <body>
+    <h2>Consulta de la API de aemet - todas provincias</h2>
+    <h3>Se visualiza en consola y en el campo de lectura</h3>
+
+    <div>
+      <label for="selectProvincia">Provincia:</label>
+      <select id="selectProvincia"></select>
+    </div>
+    <br />
+    <!-- Campo para mostrar el código de la provincia -->
+    <div>
+      <label for="provinciaCodigo">Código:</label>
+      <span id="provinciaCodigo"></span>
+    </div>
+    <br />
+    <button id="consultarApi">Consultar API</button>
+    <br /><br />
+    <!-- Campo de lectura para mostrar los datos completos de la API -->
+    <h3>Datos Completos</h3>
+    <pre
+      id="apiResult"
+      style="background-color: #f4f4f4; border: 1px solid #ccc; padding: 10px"
+    ></pre>
+
+    <script>
+      // GET /api/prediccion/especifica/municipio/diaria/{municipio} Predicción por municipios diaria. Tiempo actual.
+ /*      {
+  "descripcion": "exito",
+  "estado": 200,
+  "datos": "https://opendata.aemet.es/opendata/sh/07a1aefc",
+  "metadatos": "https://opendata.aemet.es/opendata/sh/dfd88b22"
+}
+ */
+      // Api key proporcionada
+      const apiKey =
+        "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhbWVqb3NlY2FyQGdtYWlsLmNvbSIsImp0aSI6IjA2MmU5NjMyLWE3OTgtNGIyNS04YTY5LWVhNjg5YTc2Mzg3YiIsImlzcyI6IkFFTUVUIiwiaWF0IjoxNzQ0Nzg3MTI3LCJ1c2VySWQiOiIwNjJlOTYzMi1hNzk4LTRiMjUtOGE2OS1lYTY4OWE3NjM4N2IiLCJyb2xlIjoiIn0.xpYSAz5ti7uRh1Vjo1pchN1CjeXT2y8xoeJvKbX1lU8";
+
+      // Usamos un Map para almacenar los datos únicos (clave: provincia, valor: código)
+      let provinceMapping = new Map();
+
+      // Al cargar la página, leer automáticamente el JSON y poblar el select
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("../bd/data_provincia.json")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Error al cargar ../bd/data_provincia.json");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log(
+              "JSON de ../bd/data_provincia.json cargado exitosamente:",
+              data
+            );
+            const selectProvincia = document.getElementById("selectProvincia");
+            selectProvincia.innerHTML = ""; // Limpiar el select
+
+            // Se asume que 'data' es un arreglo de objetos con propiedades "provincia" y "codigo"
+            data.forEach((item) => {
+              // Agregar solo si aún no se ha añadido la provincia
+              if (item.provincia && !provinceMapping.has(item.provincia)) {
+                provinceMapping.set(item.provincia, item.codigo);
+              }
+            });
+
+            // Convertir las claves en un array y ordenarlas alfabéticamente
+            let provinciasUnicas = Array.from(provinceMapping.keys());
+            provinciasUnicas.sort((a, b) => a.localeCompare(b));
+
+            // Crear las opciones del select usando el nombre (texto) y el código (value)
+            provinciasUnicas.forEach((provincia) => {
+              const option = document.createElement("option");
+              option.value = provinceMapping.get(provincia);
+              option.textContent = provincia;
+              selectProvincia.appendChild(option);
+            });
+
+            // Actualizar el campo "Código" para la provincia seleccionada (la primera opción)
+            if (selectProvincia.options.length > 0) {
+              selectProvincia.dispatchEvent(new Event("change"));
+            }
+          })
+          .catch((error) => {
+            console.error("Error al cargar ../bd/data_provincia.json:", error);
+          });
+      });
+
+      // Cada vez que se seleccione una provincia, se actualiza el campo con el código
+      document
+        .getElementById("selectProvincia")
+        .addEventListener("change", (event) => {
+          const codigo = event.target.value;
+          document.getElementById("provinciaCodigo").textContent = codigo;
+        });
+
+      // Al pulsar el botón "Consultar API", se forma la URL usando el código asociado a la provincia,
+      // se consulta la API, se extrae la URL en la propiedad "datos", se hace una segunda consulta y se muestra el resultado
+      document.getElementById("consultarApi").addEventListener("click", () => {
+        const selectProvincia = document.getElementById("selectProvincia");
+        const provinciaCodigo = selectProvincia.value; // Código de la provincia seleccionada
+        const url = `https://opendata.aemet.es/opendata/api/prediccion/provincia/hoy/${provinciaCodigo}/?api_key=${apiKey}`;
+        console.log("Consultando API en URL:", url);
+
+        fetch(url)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Error al consultar la API: " + response.status);
+            }
+            return response.json();
+          })
+          .then((apiData) => {
+            console.log("Respuesta inicial de la API:", apiData);
+            const datosUrl = apiData.datos;
+            console.log("URL para datos completos:", datosUrl);
+            // Realizar la segunda consulta para obtener los datos completos a partir de la URL en "datos"
+            return fetch(datosUrl);
+          })
+          .then((responseDatos) => {
+            if (!responseDatos.ok) {
+              throw new Error(
+                "Error al consultar los datos completos: " +
+                  responseDatos.status
+              );
+            }
+            // Usamos response.arrayBuffer() para obtener los datos como un buffer de bytes
+            return responseDatos.arrayBuffer();
+          })
+          .then((buffer) => {
+            // Decodificamos el buffer usando la codificación adecuada; en este ejemplo usamos "iso-8859-1"
+            const decoder = new TextDecoder("iso-8859-1");
+            return decoder.decode(buffer);
+          })
+          .then((datosCompletos) => {
+            console.log("Datos completos extraídos:", datosCompletos);
+            // Mostrar los datos completos en el HTML en el campo de lectura
+            document.getElementById("apiResult").textContent = datosCompletos;
+          })
+          .catch((error) => {
+            console.error("Error en la consulta a la API:", error);
+          });
+      });
+    </script>
+  </body>
+</html>
