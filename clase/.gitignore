@@ -1,9 +1,8 @@
-
 # aqui colocamos los nombres de los archivos que no queremos subir al github.
-#prueba_no_subir.txt
+prueba_no_subir.txt
 # ./ indica que todo lo que esta dentro de la carpeta
 #/CARPETA_NO_SUUBIR/*.*
 # ./ indica que todo lo que es html dentro de la carpeta
-#/carpeta_no_subir/*.html
+/carpeta_no_subir/*.html
 # ./ indica que el archivo este dentro una carpeta
-# */carpeta1/prueba_no_subir2.txt
+*/carpeta1/prueba_no_subir2.txt
