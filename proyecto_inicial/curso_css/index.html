@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Selectores Básicos CSS</title>
+    <style>
+      /* Selector de Etiqueta */
+      body {
+        font-family: sans-serif;
+      }
+      h2 {
+        color: navy;
+      }
+      /* Selector de ID */
+      #navegacion-principal {
+        background-color: rgb(148, 147, 147);
+        padding: 10px;
+      }
+      /* Selectores de Clase */
+      .enlace-nav {
+        margin-right: 15px;
+        color: rgb(206, 8, 8);
+      }
+      .enlace-activo {
+        font-weight: bold;
+        text-decoration: none;
+        color: rgb(171, 216, 10);
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navegacion-principal">
+      <a href="#" class="enlace-nav enlace-activo">Inicio</a>
+      <a href="./menu_navegacion.html" class="enlace-nav">menu_navegacion</a>
+      <a href="./parrafos.html" class="enlace-nav">Parrafos</a>
+      <a href="./atributos.html" class="enlace-nav">Selectores de Atributos</a>
+    </nav>
+    <h2>Bienvenido a nuestra página Inicio</h2>
+    <p>Este es contenido normal.</p>
+  </body>
+</html>

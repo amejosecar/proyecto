@@ -1,0 +1,110 @@
+GIT and Github
+
+instalas 1er git - https://git-scm.com/downloads/win
+
+[mingw-w64] - consola para viasual studio - git
+https://github.com/mingw-w64/mingw-w64
+https://learn.microsoft.com/es-es/vcpkg/users/platforms/mingw
+https://www.mingw-w64.org/
+https://stackoverflow.com/questions/tagged/mingw-w64
+
+
+
+
+https://tudocommoda.com/moda-masculina/corte-de-cabelo-militar/
+
+Carpeta compartida
+bit.ly/ProgC2B
+
+
+Reuniones online
+https://meet.google.com/dfa-xfro-tbp
+
+
+Manuales
+	html y python
+	https://www.sitepoint.com/ 
+	- html ccs javascript
+	https://developer.mozilla.org/es/ 
+	- html ccs javascript
+	https://www.notion.com/
+	- CSS5
+	https://cssreference.io/
+	- Bootstrap
+	https://getbootstrap.com/docs/5.3/getting-started/introduction/
+
+
+Aprender
+FreeCodeCamp:
+	https://www.freecodecamp.org/espanol/
+	Ofrece una guía detallada sobre formularios HTML, incluyendo diferentes tipos de entradas y botones de envío.
+
+Creativos Online	
+	https://www.creativosonline.org/formularios-css-html.html
+	Ofrecen una colección de 40 formularios con diseños variados, desde contactos hasta checkouts.
+HTML Desde Cero	
+	https://htmldesdecero.es/blog/plantilla-formulario-html/
+	Proporcionan plantillas personalizables con explicaciones detalladas para adaptarlas.
+NoCoders Academy
+	https://www.nocoders.academy/plantillas-html5-responsive-gratuitas
+	Incluyen 67 plantillas HTML5 responsive gratuitas, fáciles de editar y adaptables a proyectos.
+
+DeepSite 
+	https://deepsiteai.com/es
+		DeepSite AI es un generador de sitios web impulsado por inteligencia artificial que 
+		permite a los usuarios crear sitios web profesionales de manera rápida y sencilla 
+		mediante descripciones de texto. Utiliza la tecnología DeepSeek V3 para ofrecer 
+		generación eficiente de sitios web con vistas previas en tiempo real y 
+		optimización SEO1.
+
+		Este servicio es ideal para individuos y empresas que buscan desarrollar sitios web 
+		sin necesidad de conocimientos de codificación. Además, admite distintos tipos 
+		de sitios, como blogs, comercio electrónico, portafolios y páginas de negocios1.
+
+Hugging Face
+	https://huggingface.co/models
+		Hugging Face es una empresa tecnológica especializada en inteligencia artificial y 
+		procesamiento del lenguaje natural (PLN). Fundada en 2016, se ha convertido en una 
+		plataforma líder que ofrece herramientas y modelos de aprendizaje automático de 
+		código abierto para desarrolladores y científicos de datos.
+
+		Su biblioteca más conocida, Transformers, permite el uso de modelos avanzados como 
+		BERT, GPT-2 y BLOOM para tareas como generación de texto, traducción automática y 
+		análisis de sentimientos. Además, Hugging Face proporciona un espacio colaborativo 
+		donde los usuarios pueden compartir modelos y conjuntos de datos, facilitando la 
+		innovación en el campo de la IA1.
+
+https://huggingface.co/spaces/victor/deepsite-gallery
+		galerias de html/ccs/javascript
+
+sitio para subir hmtl para rediseñar o diseñar
+	https://enzostvs-deepsite.hf.space/
+		DeepSite es una herramienta de desarrollo web que te permite crear sitios web con inteligencia 
+		artificial, sin necesidad de programar. Está alojada en Hugging Face Spaces y facilita 
+		la generación de aplicaciones mediante IA2.
+
+cdnjs 
+	https://cdnjs.com/
+		cdnjs es una red de entrega de contenido (CDN) gratuita y de código abierto, utilizada por 
+		más del 12,5% de los sitios web en Internet. Su propósito es facilitar la carga de archivos 
+		de bibliotecas en sitios web de manera rápida y eficiente. Está impulsada por Cloudflare y 
+		ofrece más de 6.000 bibliotecas de JavaScript y CSS.
+
+
+
+
+api 
+	para prediccion de tiempo
+		https://opendata.aemet.es/centrodedescargas/inicio
+
+
+
+app
+https://winrar.es/descargas/103/descargar-winrar-para-windows-x64-en-espa-ol
+chat.deepseek.com
+HUGGING FACE
+tiobe.com   - ranking de app desarrollo
+
+
+Iconos gratis.
+	https://icon-icons.com/

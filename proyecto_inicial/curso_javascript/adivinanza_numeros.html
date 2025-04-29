@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ejercicio JavaScript 08 abril 2025</title>
+    <script src="../js/menu.js" type="module"></script>
+  </head>
+  <body>
+    <h1>Ejercicios de JavaScritp</h1>
+    <div id="menu"></div>
+    <br />
+
+    <h2>Ejercicio 6: Adivinanza de Números</h2>
+
+    <table>
+      <tr>
+        <td>
+          <img src="../img/adivinar.jpg"
+            width="275px"
+            height="50%"
+            style="border: 1px solid black"
+          />
+        </td>
+        <td>
+          <p>
+            <strong></strong>Ejercicio 5: Adivinanza de Números</strong
+            ><br /> <strong>Objetivo:</strong> Juego donde el usuario
+            debe adivinar un número aleatorio.<br /> <strong>Requisitos:</strong><br />
+            <strong>- </strong>Generar un número aleatorio entre 1 y 100 al cargar la página<br />
+            <strong>- </strong>Un input para que el usuario ingrese su intento<br />
+            <strong>- </strong>Un botón para comprobar el intento<br /> 
+            <strong>- </strong>Mensajes que indiquen si el número es mayor o menor<br />
+            <strong>- </strong>Mostrar el número de intentos realizados<br />
+            <strong>- </strong>Mensaje de felicitaciones cuando el usuario adivine el número<br />
+            <strong>- </strong>Botón para reiniciar el juego con un nuevo número aleatorio
+            <br />
+            <br />
+            <strong>revisar el codigo de Aitor para ver que hizo</strong>
+            <br />
+            <br />
+            <strong>MEJORAS PENDIENTE:</strong>
+          </p>
+        </td>
+      </tr>
+    </table>
+    <br />
+
+    <!-- Aquí los botones debajo de la tabla -->
+
+    <!-- Elementos de entrada y botones -->
+      <label for="num-adivinar">Adivina el número</label>
+      <input type="number" id="num-adivinar" placeholder="coloca el valor" />
+      <button id="boton-comprobar">Comprobar</button>
+      <button id="boton-reset">Reiniciar</button>
+      <div id="input-container">
+        <p id="num_aleatorio"></p>
+        <p id="mensaje_adv"></p>
+        <p id="mensaje_feliz"></p>
+        <p id="intentos"></p> 
+</div>
+<script>
+// Generar un número aleatorio entre 1 y 100 al cargar la página
+function getrandomInt(min, max) {
+    const minCeiled = Math.ceil(min); // Redondear hacia arriba
+    const maxFloored  = Math.floor(max); // Redondear hacia abajo    
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // El máximo es exclusivo y el mínimo es inclusivo
+      }
+
+  
+    let numeroAleatorio = getrandomInt(1, 100); // Número aleatorio entre 1 y 100
+    console.log("Número aleatorio:", numeroAleatorio); // Para depuración
+
+    // funciona
+    //     //   const predecir = function () {
+    //   let numero = parseInt(document.getElementById("num-adivinar").value);
+    //   numero = numero % 100;
+    //   if (numero < numeroAleatorio) {
+    //     console.log("Mayor");
+    //   } else {
+    //     console.log("menor");
+    //   }
+    // };
+
+// funcion para predecir la adivinanza
+    let intentos = 0;
+
+    const predecir = function () {
+      let numero = parseInt(document.getElementById("num-adivinar").value);
+      console.log("Número ingresado:", numero); // Para depuración
+      numero = numero % 100;  // Asegurarse de que el número esté entre 1 y 100
+      intentos++;
+      document.getElementById(
+        "intentos"
+      ).innerText = `Llevas ${intentos} intento${intentos > 1 ? "s" : ""}`;
+      console.log("intentos:", intentos); // Para depuración
+      if (numero < numeroAleatorio) {
+        console.log("mayor");
+        document.getElementById(
+          "mensaje_adv"
+        ).innerText = `El número aleatorio es mayor que el tuyo `;
+      } else if (numero > numeroAleatorio) {
+        console.log("menor");
+        document.getElementById(
+          "mensaje_adv"
+        ).innerText = `El número aleatorio es menor que el tuyo `;
+      } else {
+        console.log("Acertaste");
+        window.alert("Acertaste");
+        document.getElementById(
+          "mensaje_feliz"
+        ).innerText = `En hora beuna has acertado el número ${numero}`;
+      }
+    };
+
+// funcion para reiniciar los valores
+    const reiniciar = function () {
+      document.getElementById("num-adivinar").value = ""; // Limpiar el input
+      let numeroAleatorio = getrandomInt(1, 100); // Generar un nuevo número aleatorio
+      console.log(numeroAleatorio);
+      document.getElementById("num-adivinar").innerText = ""; // Limpiar 
+      document.getElementById("num_aleatorio").innerText = ""; // Limpiar 
+        document.getElementById("mensaje_adv").innerText = ""; // Limpiar 
+        document.getElementById("mensaje_feliz").innerText = ""; // Limpiar 
+        document.getElementById("intentos").innerText = ""; // Limpiar 
+      intentos = 0; // Reiniciar el contador de intentos
+   };
+
+
+      // Asignar eventos a los botones
+      document.getElementById("boton-comprobar").addEventListener("click", predecir); // Evento para comprobar el número a divinar
+      document.getElementById("boton-reset").addEventListener("click", reiniciar); // Evento para reiniciar el numero a divinar
+
+      
+
+
+</script>
+  </body>
+</html>

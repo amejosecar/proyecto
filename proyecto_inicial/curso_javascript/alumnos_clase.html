@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clases_metho - Ficha de alumnos</title>
+</head>
+<body>
+    <h1>REVISAR EL CODIGO DE AITOR</h1>
+    <p>Alumnos con metodos  CLASES
+        Constuir un formualrio para miostrar la inofrmacion de los alumnos desde una 
+        base de datos, en este caso un array de objetos. El formulario debe tener los siguientes campos:
+        <ul>
+            
+            <li>1. Construir un formulario para introducir datos personales de alumnos:
+                Nombre
+                Apellidos
+                DNI
+                Edad (selector)
+                Curso (selector de cinco cursos)</li>
+                
+            <li>2. Guardar los datos del alumno en un objeto verificando.
+                    - Que la edad esté entre 18 y 120 años
+                    - el DNI tenga 8 dígitos y una letra.</li>
+                
+            <li>3. Guardar las películas en una lista de alumnos.</li>
+            <li>4. Hacer que la lista de alumnos tenga persistencia en el navegador</li>
+            <li>5. Renderizar la información de los alumnos en una tabla.
+                De manera que los encabezados de la tabla procedan de los campos del objeto alumno.
+                </li>       
+            <li>6. Modificar el formulario para que utilice la clase Alumno en lugar de objetos. 
+                La clase alumno contendrá los verificadores y la lista de cursos.
+                    </li>
+        </ul>
+    </p>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre"><br><br>
+
+    <label for="apellidos">Apellidos:</label>
+    <input type="text" id="apellidos" name="apellidos"><br><br>
+
+    <label for="edad">Edad:</label>
+    <input type="number" id="edad" name="edad"><br><br>
+
+    <label for="dni">DNI del Alumno</label>
+    <input type="text" id="dni" name="dni"><br><br>
+
+    <!-- Campo para reflejar los géneros seleccionados -->
+    <label for="Cursos">Lista de Cursos</label>
+    <select name="Cursos" id="Cursos"></select>
+<!--     <select id="Cursos" name="Cursos">
+        <option value="">Seleccion un curso</option>
+        <option value="Curso 1">Curso 1</option>
+        <option value="Curso 2">Curso 2</option>
+        <option value="Curso 3">Curso 3</option>
+        <option value="Curso 4">Curso 4</option>
+        <option value="Curso 5">Curso 5</option>
+    </select> 
+-->
+<!--     <input type="text" id="selectedCursos" readonly placeholder="Selecciona Cursos" disabled /> -->
+<br>
+<br>
+    <label for="fecha_nacimiento">Fecha de nacimiento:</label>
+    <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+    <br>
+    <br>
+    <label for="sexo">Sexo:</label>
+    <select name="sexo" id="sexo"></select>
+<!--     <select id="sexo" name="sexo">
+        <option value="">Selecciona un sexo</option>
+        <option value="masculino">Masculino</option>
+        <option value="femenino">Femenino</option>
+        <option value="no_binario">No binario</option>
+        <option value="otro">Otro</option>
+        <option value="prefiero_no_decirlo">Prefiero no decirlo</option> 
+    </select>
+-->
+<br>
+<br>
+
+<button type="button" id="boton_cargar">Cargar datos</button>
+<button type="button" id="boton_reset">Limpiar formulario</button>
+<button type="button" id="mostrar_datos">Mostrar datos</button>
+<br>
+<br>
+<h2>Tabla de alumnos</h2>
+<div id="tabla_alumnos"></div>
+
+</body>
+
+<script  type="module">
+import { baseDatos } from "../js/baseDatosAlumnos.js";       //  importar la base de datos de alumnos desde un archivo externo
+
+// Obtener la lista de alumnos del localStorage o inicializarla como un array vacío
+//let lista_alumnos = JSON.parse(localStorage.getItem("lista_alumnos")) || [];
+
+// Clase Alumno
+class Alumno {
+    constructor(nombre, apellidos, dni, edad, cursos, fecha_nacimiento, sexo) {
+        this.nombre = this.verificarVacio("nombre", nombre);
+        this.apellidos = this.verificarVacio("apellidos", apellidos);
+        this.edad = this.verificarEdad(edad);
+        this.dni = this.verificarDNI(dni);
+        this.cursos = this.verificarVacio("cursos", cursos);
+        this.fecha_nacimiento = this.verificarVacio("fecha_nacimiento", fecha_nacimiento);
+        this.sexo = this.verificarVacio("sexo", sexo);
+    }
+
+    static cursosDisponibles = [
+        "curso1",
+        "curso2",
+        "curso3",
+        "curso4",
+        "curso5",
+      ];
+    
+
+
+    static sexoDisponibles = [
+        "masculino",
+        "femenino",
+        "prefiero_no_decirlo",
+        ];
+
+
+
+    verificarEdad(edad) {
+        //edad = parseInt(edad);
+        if (edad >= 18 && edad <= 70) {
+            return edad;
+        } else {
+            throw Error(`Edad fuera de rango. El valor ingresado es: ${edad}`);
+        }
+    }
+
+    verificarDNI(dni) {
+        dni = dni.toUpperCase();
+        const expresion = new RegExp("^\\d{8}[A-Z]$");
+        if (expresion.test(dni)) {
+            return dni;
+        } else {
+            throw Error("DNI no válido");
+        }
+    }
+
+    verificarVacio(nombreCampo, valorCampo) {
+        if (valorCampo.trim() === "") {
+            throw Error(`El campo ${nombreCampo} no puede estar vacío`);
+        } else {
+            return valorCampo;
+        }
+    }
+}
+
+
+const mapeo_alumnos = function (lista_alumnos) {
+      return lista_alumnos.map(
+        (a) => new Alumno(a.nombre, a.apellidos, a.dni, a.edad, a.cursos. a.fecha_nacimiento, a.sexo)
+      );
+    };
+
+    let lista_alumnos = []; // ahora la llenamos en el callback
+
+    
+    const cargar_Datos = async () => {
+      try {
+        const resultado = await baseDatos();
+        lista_alumnos = mapeo_alumnos(resultado);
+        console.log("Ya tenemos los datos:", lista_alumnos);
+      } catch (error) {
+        console.error("Error al cargar los datos:", error);
+      }
+    };
+    cargar_Datos();
+
+
+    // Poblar el select de cursos
+    const selectCurso = document.getElementById("Cursos");
+    Alumno.cursosDisponibles.forEach((curso) => {
+      const option = document.createElement("option");
+      option.value = curso;
+      option.textContent =
+        String(curso).charAt(0).toUpperCase() + String(curso).slice(1) + "º";
+      selectCurso.appendChild(option);
+    });    
+
+
+    // Poblar el select de sexo
+    const selectSexo = document.getElementById("sexo");
+    Alumno.sexoDisponibles.forEach((sexo) => {
+      const option = document.createElement("option");
+      option.value = sexo;
+      option.textContent =
+        String(sexo).charAt(0).toUpperCase() + String(sexo).slice(1);
+      selectSexo.appendChild(option);
+    });    
+
+
+const cargarDatos = function () {
+      let nombre = document.getElementById("nombre").value;
+      let apellidos = document.getElementById("apellidos").value;
+      let dni = document.getElementById("dni").value;
+      let edad = document.getElementById("edad").value;
+      let cursos = document.getElementById("Cursos").value;
+      let fecha_nacimiento = document.getElementById("fecha_nacimiento").value;
+      let sexo = document.getElementById("sexo").value;
+      try {
+        let alumno = new Alumno(nombre, apellidos, dni, edad, cursos, fecha_nacimiento, sexo);
+              //constructor(nombre, apellidos, dni, edad, cursos, fecha_nacimiento, sexo)
+        console.log(alumno);
+        lista_alumnos.push(alumno);
+        localStorage.setItem("lista_alumnos", JSON.stringify(lista_alumnos));
+      } catch (error) {
+        window.alert(error.message);
+        console.error(error);
+      }
+    };
+
+
+// Renderizar tabla de datos
+const renderizarDatos = function () {
+    const contenedorTabla = document.getElementById("tabla_alumnos");
+    contenedorTabla.innerHTML = ""; // Limpiar cualquier tabla previa
+
+    if (lista_alumnos.length === 0) {
+        contenedorTabla.innerHTML = "<p>No hay alumnos registrados.</p>";
+        return;
+    }
+
+    const tabla = document.createElement("table");
+    tabla.style.borderCollapse = "collapse";
+    tabla.style.width = "75%";
+
+    // Crear encabezados de la tabla dinámicamente desde las keys del primer objeto
+    const encabezados = Object.keys(lista_alumnos[0]); // Obtener las keys del primer objeto
+    const encabezadosRow = document.createElement("tr");
+
+    encabezados.forEach(encabezado => {
+        const th = document.createElement("th");
+        th.textContent = encabezado.charAt(0).toUpperCase() + encabezado.slice(1); // Capitalizar encabezado
+        th.style.border = "1px solid black";
+        th.style.padding = "8px";
+        th.style.backgroundColor = "#f2f2f2";
+        encabezadosRow.appendChild(th);
+    });
+    tabla.appendChild(encabezadosRow);
+
+    // Crear filas de la tabla con la información de los alumnos
+    lista_alumnos.forEach(alumno => {
+        const fila = document.createElement("tr");
+
+        encabezados.forEach(key => {
+            const td = document.createElement("td");
+
+            // Si la propiedad no existe o está vacía, manejar el caso
+            td.textContent = alumno[key] || "Dato no disponible";
+            td.style.border = "1px solid black";
+            td.style.padding = "8px";
+            fila.appendChild(td);
+        });
+
+        tabla.appendChild(fila);
+    });
+
+    contenedorTabla.appendChild(tabla);
+};
+
+/* const renderizarDatos = function () {
+    const contenedorTabla = document.getElementById("tabla_alumnos");
+    contenedorTabla.innerHTML = ""; // Limpiar cualquier tabla previa
+
+    if (listaAlumnos.length === 0) {
+        contenedorTabla.innerHTML = "<p>No hay alumnos registrados.</p>";
+        return;
+    }
+
+    const tabla = document.createElement("table");
+    tabla.style.borderCollapse = "collapse";
+    tabla.style.width = "75%";
+
+    // Crear encabezados de la tabla dinámicamente desde las keys del primer objeto
+    const encabezados = Object.keys(listaAlumnos[0]); // Obtener las keys del primer objeto
+    const encabezadosRow = document.createElement("tr");
+
+    encabezados.forEach(encabezado => {
+        const th = document.createElement("th");
+        th.textContent = encabezado.charAt(0).toUpperCase() + encabezado.slice(1); // Capitalizar encabezado
+        th.style.border = "1px solid black";
+        th.style.padding = "8px";
+        th.style.backgroundColor = "#f2f2f2";
+        encabezadosRow.appendChild(th);
+    });
+    tabla.appendChild(encabezadosRow);
+
+    // Crear filas de la tabla con la información de los alumnos
+    listaAlumnos.forEach(alumno => {
+        const fila = document.createElement("tr");
+
+        encabezados.forEach(key => {
+            const td = document.createElement("td");
+            td.textContent = alumno[key]; // Usar el valor correspondiente a la key
+            td.style.border = "1px solid black";
+            td.style.padding = "8px";
+            fila.appendChild(td);
+        });
+
+        tabla.appendChild(fila);
+    });
+
+    contenedorTabla.appendChild(tabla);
+}; */
+
+// Limpiar campos del formulario
+const limpiarCampos = function () {
+    const ids = ["nombre", "apellidos", "edad", "dni", "Cursos", "sexo", "fecha_nacimiento"];
+
+    ids.forEach(id => {
+        const elemento = document.getElementById(id);
+        if (elemento) {
+            elemento.value = "";
+        } else {
+            console.warn(`El elemento con ID "${id}" no se encuentra en el DOM.`);
+        }
+    });
+};
+
+document.getElementById("boton_reset").addEventListener("click", limpiarCampos);
+document.getElementById("boton_cargar").addEventListener("click", cargarDatos);
+document.getElementById("mostrar_datos").addEventListener("click", renderizarDatos);
+
+
+
+</script>
+
+
+
+</html>
