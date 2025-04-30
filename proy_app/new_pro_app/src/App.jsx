@@ -6,7 +6,7 @@ import BasicAccordion from "./Accordion"; // Importamos el componente desde Acco
 
 function App() {
   const [count, setCount] = useState(0);
-
+  const saludar = () => alert(`La cuenta es ${count}`);
   return (
     <>
       <div className="seccion">
@@ -29,7 +29,10 @@ function App() {
 
       <div className="seccion">
         <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
+          <button
+            className="btn btn-success"
+            onClick={() => setCount((count) => count + 1)}
+          >
             count is {count}
           </button>
           <p>
@@ -40,7 +43,9 @@ function App() {
 
       <div className="seccion">
         {/* Nueva línea agregada */}
-        <button onClick={() => alert("Hola")}>Mostrar Alerta</button>
+        <button className="btn btn-danger" onClick={saludar}>
+          Mostrar Alerta
+        </button>
       </div>
 
       <div className="seccion">

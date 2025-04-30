@@ -1,34 +1,49 @@
-import { Accordion } from "react-bootstrap";
+import React from "react";
 
-function BasicAccordion() {
+const AcordeonItem = ({ encabezado, texto, identificador }) => {
   return (
-    <Accordion defaultActiveKey="0">
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Accordion Item #1</Accordion.Header>
-        <Accordion.Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Accordion.Body>
-      </Accordion.Item>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Accordion Item #2</Accordion.Header>
-        <Accordion.Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
+    <div className="accordion-item">
+      <h2 className="accordion-header">
+        <button
+          className="accordion-button"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target={`#collapse-${identificador}`}
+          aria-expanded="true"
+          aria-controls={`collapse-${identificador}`}
+        >
+          {encabezado}
+        </button>
+      </h2>
+      <div
+        id={`collapse-${identificador}`}
+        className="accordion-collapse collapse show"
+        data-bs-parent="#accordionExample"
+      >
+        <div className="accordion-body">{texto}</div>
+      </div>
+    </div>
   );
-}
+};
 
-export default BasicAccordion;
+const Acordeon = () => {
+  return (
+    <div className="accordion" id="accordionExample">
+      <AcordeonItem key="1" encabezado="123" texto="abc" identificador="1" />
+      <AcordeonItem
+        key="2"
+        encabezado="Segundo desplegable"
+        texto="este es el texto del segundo desplegable"
+        identificador="2"
+      />
+      <AcordeonItem
+        key="3"
+        encabezado="Tercer desplegable"
+        texto="este es el texto del tercer desplegable"
+        identificador="3"
+      />
+    </div>
+  );
+};
+
+export default Acordeon;
