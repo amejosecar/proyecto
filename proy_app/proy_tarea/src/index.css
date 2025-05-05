@@ -66,17 +66,3 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-.task-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.btn-add {
-  margin-left: 20px;
-  padding: 10px;
-  background-color: green;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
