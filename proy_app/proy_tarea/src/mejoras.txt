@@ -1,0 +1,11 @@
+//Mejoras del código prara el futuro  :
+// listo - colocar el focus en el campo nombre de la tarea
+//listo - separar el código en componentes, por ejemplo, el formulario de añadir tarea y la tabla de tareas.
+//listo - Añadir validación para la fecha de entrega (no permitir fechas pasadas).
+//listo -  usar el useEffect para guardar y cargar las tareas desde el almacenamiento local del navegador.
+//listo -  mesaje de advertencia sobre muchas tareas muy importantes igual a 3 o mayor a 3. con useEffect.
+//  // 2. Añadir un botón para editar tareas existentes.
+//  // 3. Añadir un filtro para mostrar solo tareas de alta importancia.
+//  // 5. Añadir un botón para limpiar todas las tareas.
+//  // 6. calculo de la fecha de entrega en días, horas y minutos.
+//  // 7. Añadir un botón para marcar tareas como completadas y mostrarlas en una lista separada.
