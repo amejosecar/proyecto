@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Toast from "react-bootstrap/Toast";
-import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [tareas, setTareas] = useState([]);
@@ -37,6 +37,8 @@ function App() {
       importancia: importancia,
       fecha: new Date(fechaInicio).toLocaleString(),
     };
+
+    console.log(nuevaTarea); // 👀 Verifica en la consola el valor de "importancia"
 
     setTareas([...tareas, nuevaTarea]);
     mostrarToast("✅ Tarea añadida correctamente.", "success");
@@ -112,14 +114,13 @@ function App() {
                 />
               </td>
             </tr>
+            {/* Botón debajo de la tabla de entrada */}
+            <Button variant="success" className="mt-3" onClick={aniadirTarea}>
+              Añadir Tarea
+            </Button>
           </tbody>
         </Table>
       </div>
-
-      {/* Botón debajo de la tabla de entrada */}
-      <Button variant="success" className="mt-3" onClick={aniadirTarea}>
-        Añadir Tarea
-      </Button>
 
       {/* Tabla centrada con botón de borrar */}
       <div className="d-flex justify-content-center w-100">
@@ -139,7 +140,16 @@ function App() {
               tareas.map((tarea, indice) => (
                 <tr
                   key={indice}
-                  className={indice % 2 === 0 ? "bg-light" : "bg-info"}
+                  style={{
+                    backgroundColor:
+                      tarea.importancia.trim() === "Muy importante"
+                        ? "#ED1C24"
+                        : "",
+                    color:
+                      tarea.importancia.trim() === "Muy importante"
+                        ? "white"
+                        : "black",
+                  }}
                 >
                   <td>{indice + 1}</td>
                   <td>{tarea.nombre}</td>
