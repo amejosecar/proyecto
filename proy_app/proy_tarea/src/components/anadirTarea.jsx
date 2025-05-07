@@ -58,7 +58,7 @@ function AnadirTarea({ agregarTarea }) {
       nombre: nombreTarea,
       descripcion: descripcionTarea,
       importancia: importancia,
-      fecha: fechaSeleccionada.toLocaleString(),
+      fecha: fechaSeleccionada.toISOString(), // Aquí está la corrección
     });
 
     mostrarToast("✅ Tarea añadida correctamente.", "success");
@@ -91,7 +91,7 @@ function AnadirTarea({ agregarTarea }) {
         </Toast>
       </div>
 
-      <Table bordered striped className="text-center w-75">
+      <Table bordered striped className="text-top w-75">
         <thead className="bg-light">
           <tr>
             <th>Nombre</th>
