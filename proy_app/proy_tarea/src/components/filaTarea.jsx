@@ -1,45 +1,57 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Mensajes from "./mensajes";
 import {
-  manejarCambioFechaCulminacion,
   formatearFechaMostrar,
   getTiempoQueda,
   eliminarTareaConConfirmacion,
   guardarTareaConValidacion,
 } from "./validaciones";
 
-function FilaTarea({ tarea, indice, eliminarTarea, guardarTarea }) {
+function FilaTarea({ tarea, indice, eliminarTarea, guardarTarea, setTareas }) {
   // Campos inmutables (presentados como texto)
   const [nombre] = useState(tarea.nombre);
   const [descripcion] = useState(tarea.descripcion);
   const [importancia] = useState(tarea.importancia);
 
   // Campos editables: status, fechaCulminacion y observaciones
+  // Se inicializan según la tarea y se actualizarán mediante efectos en caso de cambios externos.
   const [status, setStatus] = useState(tarea.status || "Desarrollo");
   const [fechaCulminacion, setFechaCulminacion] = useState(
     tarea.fechaCulminacion || ""
   );
   const [observaciones, setObservaciones] = useState(tarea.observaciones || "");
 
+  // Usamos un efecto para actualizar el estado local 'fechaCulminacion' si la propiedad cambia en la tarea
+  useEffect(() => {
+    setFechaCulminacion(tarea.fechaCulminacion || "");
+  }, [tarea.fechaCulminacion]);
+
   // Se usan para determinar si cada objeto editable debe estar habilitado o no.
+  const initialDisabled = status === "Cancelado" || status === "Culminado";
   const [disabledFields, setDisabledFields] = useState({
-    fechaCulminacion: false,
-    status: false,
-    observaciones: false,
+    fechaCulminacion: initialDisabled,
+    status: initialDisabled,
+    observaciones: initialDisabled,
   });
 
-  // Clase de la fila. Si la tarea es de alta importancia se inicia con "table-danger text-white".
-  const [rowClass, setRowClass] = useState(
-    tarea.importancia === "alta" ? "table-danger text-white" : ""
-  );
+  // Clase de la fila
+  const initialRowClass =
+    status === "Cancelado"
+      ? "table-warning"
+      : status === "Culminado"
+      ? "table-primary"
+      : importancia === "alta"
+      ? "table-danger text-white"
+      : "";
+  const [rowClass, setRowClass] = useState(initialRowClass);
 
   const [mostrarToast, setMostrarToast] = useState(false);
   const [mensajeToast, setMensajeToast] = useState("");
   const [tipoToast, setTipoToast] = useState("danger");
 
-  // Referencia para el campo observaciones (para enfocarlo en casos de error)
+  // Referencia para el campo observaciones
   const observacionesRef = useRef(null);
 
   const mostrarMensaje = (mensaje, tipo) => {
@@ -49,7 +61,6 @@ function FilaTarea({ tarea, indice, eliminarTarea, guardarTarea }) {
     setTimeout(() => setMostrarToast(false), 3000);
   };
 
-  // Callbacks para actualizar el estado disabled y la clase de la fila.
   const updateDisabledFields = (disabledObj) => {
     setDisabledFields(disabledObj);
   };
@@ -58,19 +69,8 @@ function FilaTarea({ tarea, indice, eliminarTarea, guardarTarea }) {
     setRowClass(cls);
   };
 
-  // Condición para deshabilitar ambos botones "Guardar" y "Borrar" cuando los tres campos editables estén bloqueados.
-  const botonesDisabled =
-    disabledFields.fechaCulminacion &&
-    disabledFields.status &&
-    disabledFields.observaciones;
-
   return (
-    <tr
-      className={
-        rowClass ||
-        (tarea.importancia === "alta" ? "table-danger text-white" : "")
-      }
-    >
+    <tr className={rowClass}>
       <Mensajes
         show={mostrarToast}
         mensaje={mensajeToast}
@@ -78,42 +78,22 @@ function FilaTarea({ tarea, indice, eliminarTarea, guardarTarea }) {
         onClose={() => setMostrarToast(false)}
       />
       <td>{indice + 1}</td>
-      <td>
-        <span>{nombre}</span>
-      </td>
-      <td>
-        <span>{descripcion}</span>
-      </td>
-      <td>
-        <span>{importancia}</span>
-      </td>
+      <td>{nombre}</td>
+      <td>{descripcion}</td>
+      <td>{importancia}</td>
       <td>{formatearFechaMostrar(tarea.fecha)}</td>
       <td>
         <Form.Control
           type="datetime-local"
           value={fechaCulminacion}
-          onChange={(e) => {
-            const resultado = manejarCambioFechaCulminacion(
-              tarea.fecha,
-              e.target.value
-            );
-            if (resultado.ok) {
-              setFechaCulminacion(resultado.fecha);
-              tarea.fechaCulminacion = resultado.fecha;
-            } else {
-              mostrarMensaje(resultado.mensaje, "warning");
-            }
-          }}
+          onChange={(e) => setFechaCulminacion(e.target.value)}
           disabled={disabledFields.fechaCulminacion}
         />
       </td>
       <td>
         <Form.Select
           value={status}
-          onChange={(e) => {
-            setStatus(e.target.value);
-            tarea.status = e.target.value;
-          }}
+          onChange={(e) => setStatus(e.target.value)}
           disabled={disabledFields.status}
         >
           <option>Desarrollo</option>
@@ -127,15 +107,11 @@ function FilaTarea({ tarea, indice, eliminarTarea, guardarTarea }) {
           required
           ref={observacionesRef}
           value={observaciones}
-          onChange={(e) => {
-            setObservaciones(e.target.value);
-            tarea.observaciones = e.target.value;
-          }}
+          onChange={(e) => setObservaciones(e.target.value)}
           disabled={disabledFields.observaciones}
         />
       </td>
       <td>{getTiempoQueda(tarea)}</td>
-      {/* Columna para el botón Guardar */}
       <td>
         <Button
           variant="outline-primary"
@@ -148,15 +124,14 @@ function FilaTarea({ tarea, indice, eliminarTarea, guardarTarea }) {
               mostrarMensaje,
               observacionesRef,
               updateDisabledFields,
-              updateRowClass
+              updateRowClass,
+              setTareas
             )
           }
-          disabled={botonesDisabled}
         >
           Guardar
         </Button>
       </td>
-      {/* Columna para el botón Borrar */}
       <td>
         <Button
           variant="outline-danger"
@@ -164,7 +139,6 @@ function FilaTarea({ tarea, indice, eliminarTarea, guardarTarea }) {
           onClick={() =>
             eliminarTareaConConfirmacion(tarea, eliminarTarea, mostrarMensaje)
           }
-          disabled={botonesDisabled}
         >
           Borrar
         </Button>

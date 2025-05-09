@@ -5,12 +5,11 @@
 //listo -  usar el useEffect para guardar y cargar las tareas desde el almacenamiento local del navegador.
 //listo -  mesaje de advertencia sobre muchas tareas muy importantes igual a 3 o mayor a 3. con useEffect.
 //listo -  6. calculo de la fecha de entrega en días, horas y minutos.
-//  // 2. Añadir un botón para editar tareas existentes.
-//  // 3. Añadir un filtro para mostrar solo tareas de alta importancia.
-//  // 5. Añadir un botón para limpiar todas las tareas.
-//  // 7. Añadir un botón para marcar tareas como completadas y mostrarlas en una lista separada.
-
-//  // 8. Añadir un botón para eliminar tareas completadas.
-    //  // 9. Añadir un botón para desmarcar tareas completadas.
-    //  // 10. Añadir un botón para eliminar tareas no completadas.
-    //  // 11. Añadir un botón para desmarcar tareas no completadas.
+//2. Añadir un botón para editar tareas existentes.
+//3. Añadir un filtro para mostrar solo tareas de alta importancia.
+//5. Añadir un botón para limpiar todas las tareas.
+//7. Añadir un botón para marcar tareas como completadas y mostrarlas en una lista separada.
+//8. Añadir un botón para eliminar tareas completadas.
+//9. Añadir un botón para desmarcar tareas completadas.
+//10. Añadir un botón para eliminar tareas no completadas.
+//11. Añadir un botón para desmarcar tareas no completadas.
