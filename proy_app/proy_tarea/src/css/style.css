@@ -1,0 +1,20 @@
+h2 {
+  box-sizing: border-box;
+  margin: 0px;
+  min-width: 0px;
+  font-weight: 700;
+  line-height: 1.25;
+  font-family: inherit;
+  text-align: center;
+  font-size: 16px;
+}
+.titulo {
+  box-sizing: border-box;
+  margin: 0px;
+  min-width: 0px;
+  font-weight: 700;
+  line-height: 1.25;
+  font-family: inherit;
+  text-align: center;
+  font-size: 16px;
+}
