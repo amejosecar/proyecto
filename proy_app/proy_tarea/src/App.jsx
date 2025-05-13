@@ -4,10 +4,12 @@ import BarraNavegacion from "./components/BarraNavegacion";
 import LogIn from "./LogIn";
 import AnadirTareas from "./AnadirTareas";
 import ConsultarTareas from "./ConsultarTareas";
+//import ConsultarTareas from "./context/cerrado";
 import Mensajero from "./Mensajero";
 import Registro from "./context/Registro";
 import OlvidasteContrasena from "./context/OlvidasteContrasena";
 import VerificarEmail from "./context/VerificarEmail";
+import Cerrado from "./context/cerrado";
 
 function App() {
   return (
@@ -29,8 +31,7 @@ function App() {
             element={
               <>
                 <BarraNavegacion />
-                <h2 className="text-center mt-4">Estoy en home</h2>
-                {/* Aquí podrías agregar otros componentes de tu Dashboard o contenido principal */}
+                <h2 className="text-center mt-4">Estoy en App</h2>
               </>
             }
           />
@@ -66,6 +67,7 @@ function App() {
           <Route path="/" element={<Navigate to="/login" replace />} />
           {/* Ruta para páginas no encontradas */}
           <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
+          <Route path="/cerrado" element={<Cerrado />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

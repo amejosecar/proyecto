@@ -1,0 +1,37 @@
+[
+  {
+    "Nombre": "Ana Gómez",
+    "Email": "ana.gomez@example.com",
+    "Edad": 20,
+    "Password": "abc12345",
+    "Rol": "Alumno"
+  },
+  {
+    "Nombre": "Carlos Martínez",
+    "Email": "carlos.martinez@example.com",
+    "Edad": 22,
+    "Password": "xyz67890",
+    "Rol": "Alumno"
+  },
+  {
+    "Nombre": "Elena Rodríguez",
+    "Email": "elena.rodriguez@example.com",
+    "Edad": 19,
+    "Password": "qwerty12",
+    "Rol": "Alumno"
+  },
+  {
+    "Nombre": "Javier López",
+    "Email": "javier.lopez@example.com",
+    "Edad": 21,
+    "Password": "securepwd",
+    "Rol": "Alumno"
+  },
+  {
+    "Nombre": "María Fernández",
+    "Email": "maria.fernandez@example.com",
+    "Edad": 35,
+    "Password": "profesor99",
+    "Rol": "Profesor"
+  }
+]

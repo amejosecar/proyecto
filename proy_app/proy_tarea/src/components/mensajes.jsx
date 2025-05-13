@@ -1,3 +1,4 @@
+// src/Mensajes.jsx
 import React from "react";
 import ReactDOM from "react-dom";
 import Toast from "react-bootstrap/Toast";
@@ -9,18 +10,12 @@ function Mensajes({
   tipo,
   onClose,
   modo = "toast",
+  // Actualizamos el valor por defecto para centrar el Toast: top: "10px", left: "50%" y centramos con transform
+  position = { top: "10px", left: "50%", transform: "translateX(-50%)" },
+  delay = 3000, // Tiempo en milisegundos antes de ocultarse
   ...restProps
 }) {
-  /* // Console.log para ver los parámetros recibidos
-  console.log("Mensajes props:", {
-    show,
-    mensaje,
-    tipo,
-    onClose,
-    modo,
-    ...restProps,
-  }); */
-
+  // Si no se debe mostrar, retorna null
   if (!show) return null;
 
   if (modo === "toast") {
@@ -29,7 +24,10 @@ function Mensajes({
         show={show}
         onClose={onClose}
         bg={tipo}
-        style={{ position: "absolute", top: "10px", zIndex: 1000 }}
+        autohide
+        delay={delay}
+        animation
+        style={{ position: "fixed", ...position, zIndex: 1040 }}
       >
         <Toast.Header>
           <strong className="me-auto">Notificación</strong>
@@ -44,7 +42,11 @@ function Mensajes({
         variant={tipo}
         onClose={onClose}
         dismissible
-        style={{ maxWidth: "50%", margin: "20px auto", textAlign: "center" }}
+        style={{
+          maxWidth: "50%",
+          margin: "20px auto",
+          textAlign: "center",
+        }}
         {...restProps}
       >
         <Alert.Heading>Notificación</Alert.Heading>

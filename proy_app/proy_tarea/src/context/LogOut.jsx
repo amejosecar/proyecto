@@ -1,16 +1,20 @@
-import { useContext } from "react";
-import { AuthContext } from "./AuthContext"; // Asegúrate de importar el contexto correctamente
+// src/context/LogOut.jsx
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import AuthContext from "./AuthContext";
 
 function LogOut() {
-  const { logout, nombre } = useContext(AuthContext); // Desestructura las funciones del contexto
+  const { nombre, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/cerrado"); // Redirige a la ruta del componente Cerrado
+  };
 
   return (
-    <button
-      onClick={logout} // Usa directamente la función logout del contexto
-      className="btn btn-outline-danger" // Cambié a color rojo (danger) para logout
-      type="button"
-    >
-      Cerrar sesión ({nombre}) {/* Muestra el nombre del usuario */}
+    <button onClick={handleLogout} className="btn btn-outline-danger">
+      Cerrar sesión ({nombre})
     </button>
   );
 }

@@ -1,13 +1,19 @@
+// src/context/LogInOut.jsx
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "./AuthContext";
+import AuthContext from "./AuthContext";
 
 const LogInOut = () => {
   const { nombre, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
   return nombre ? (
-    <button onClick={logout} className="btn btn-outline-danger">
+    <button onClick={handleLogout} className="btn btn-outline-danger">
       Cerrar sesión
     </button>
   ) : (
