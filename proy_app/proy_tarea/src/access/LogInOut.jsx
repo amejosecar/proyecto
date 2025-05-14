@@ -1,22 +1,26 @@
-// src/context/LogOut.jsx
+// src/context/LogInOut.jsx
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import AuthContext from "./AuthContext";
+import AuthContext from "../context/AuthContext";
 
-function LogOut() {
+const LogInOut = () => {
   const { nombre, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    navigate("/cerrado"); // Redirige a la ruta del componente Cerrado
+    navigate("/login");
   };
 
-  return (
+  return nombre ? (
     <button onClick={handleLogout} className="btn btn-outline-danger">
-      Cerrar sesión ({nombre})
+      Cerrar sesión
+    </button>
+  ) : (
+    <button onClick={() => navigate("/login")} className="btn btn-primary">
+      Iniciar sesión
     </button>
   );
-}
+};
 
-export default LogOut;
+export default LogInOut;

@@ -1,0 +1,21 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
+
+function EnDesarrollo() {
+  const navigate = useNavigate();
+
+  return (
+    <div
+      className="container d-flex flex-column align-items-center justify-content-center"
+      style={{ minHeight: "100vh" }}
+    >
+      <h1>En desarrollo</h1>
+      <p>Esta página está en desarrollo. Por favor, vuelve más tarde.</p>
+      <button className="btn btn-primary mt-3" onClick={() => navigate(-1)}>
+        Regresar
+      </button>
+    </div>
+  );
+}
+
+export default EnDesarrollo;

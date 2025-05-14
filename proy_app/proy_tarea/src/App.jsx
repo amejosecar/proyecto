@@ -1,20 +1,31 @@
+// src/App.jsx
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useState } from "react";
 import { AuthProvider } from "./context/AuthContext";
 import BarraNavegacion from "./components/BarraNavegacion";
 import LogIn from "./LogIn";
 import AnadirTareas from "./AnadirTareas";
 import ConsultarTareas from "./ConsultarTareas";
-//import ConsultarTareas from "./context/cerrado";
 import Mensajero from "./Mensajero";
-import Registro from "./context/Registro";
-import OlvidasteContrasena from "./context/OlvidasteContrasena";
-import VerificarEmail from "./context/VerificarEmail";
-import Cerrado from "./context/cerrado";
+import Registro from "./access/Registro.jsx";
+import OlvidasteContrasena from "./access/OlvidasteContrasena.jsx";
+import VerificarEmail from "./access/VerificarEmail.jsx";
+import Cerrado from "./access/cerrado.jsx";
+import EditarPerfil from "./access/editarPerfil.jsx"; // Ajusta la ruta según corresponda
 
 function App() {
+  const [showEditModal, setShowEditModal] = useState(false);
+
   return (
     <AuthProvider>
       <BrowserRouter>
+        {/* Renderizamos el modal globalmente si está activo */}
+        {showEditModal && (
+          <EditarPerfil
+            showModal={showEditModal}
+            handleClose={() => setShowEditModal(false)}
+          />
+        )}
         <Routes>
           {/* Rutas de autenticación */}
           <Route path="/login" element={<LogIn />} />
@@ -30,7 +41,7 @@ function App() {
             path="/app"
             element={
               <>
-                <BarraNavegacion />
+                <BarraNavegacion setShowEditModal={setShowEditModal} />
                 <h2 className="text-center mt-4">Estoy en App</h2>
               </>
             }
@@ -39,7 +50,7 @@ function App() {
             path="/anadirTareas"
             element={
               <>
-                <BarraNavegacion />
+                <BarraNavegacion setShowEditModal={setShowEditModal} />
                 <AnadirTareas />
               </>
             }
@@ -48,7 +59,7 @@ function App() {
             path="/consultarTareas"
             element={
               <>
-                <BarraNavegacion />
+                <BarraNavegacion setShowEditModal={setShowEditModal} />
                 <ConsultarTareas />
               </>
             }
@@ -57,7 +68,7 @@ function App() {
             path="/mensajero"
             element={
               <>
-                <BarraNavegacion />
+                <BarraNavegacion setShowEditModal={setShowEditModal} />
                 <Mensajero />
               </>
             }
@@ -65,9 +76,9 @@ function App() {
 
           {/* Redirección a login si se accede a la raíz */}
           <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/cerrado" element={<Cerrado />} />
           {/* Ruta para páginas no encontradas */}
           <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
-          <Route path="/cerrado" element={<Cerrado />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

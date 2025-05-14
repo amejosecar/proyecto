@@ -14,12 +14,12 @@ function Cerrado() {
     <Container className="d-flex justify-content-center align-items-center vh-100">
       <Card style={{ width: "30rem" }} className="text-center">
         <Card.Body>
-          <Card.Title>Sesión Cerrada</Card.Title>
+          <Card.Title>Gestión de tareas</Card.Title>
           <Card.Text style={{ fontSize: "18px" }}>
-            Su sesión ha sido cerrada exito
+            Su sesión ha sido cerrada con exito
           </Card.Text>
           <Button variant="primary" onClick={handleSalir}>
-            Salir
+            Volver a iniciar sesión
           </Button>
         </Card.Body>
       </Card>

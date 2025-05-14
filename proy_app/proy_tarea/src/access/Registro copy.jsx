@@ -1,6 +1,7 @@
-// src/context/Registro.jsx
+// este esta formateado de manera vertical
+
 import React, { useContext, useEffect, useState } from "react";
-import AuthContext from "./AuthContext";
+import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { Container, Card, Form, Button } from "react-bootstrap";
 import Mensajes from "../components/mensajes"; // Ajusta la ruta según tu estructura
@@ -20,6 +21,8 @@ function Registro() {
   const [formData, setFormData] = useState(initialFormData);
   // Estado para manejar mensajes de error/validación o éxito
   const [mensaje, setMensaje] = useState(null);
+  // Estado para manejar la validación del formulario con React Bootstrap
+  const [validated, setValidated] = useState(false);
 
   // Log cuando se carga el componente
   useEffect(() => {
@@ -27,7 +30,16 @@ function Registro() {
   }, []);
 
   const annadeUsuario = (e) => {
+    // Previene el comportamiento por defecto del formulario
     e.preventDefault();
+    const form = e.currentTarget;
+    // Verifica la validez utilizando la validación nativa
+    if (form.checkValidity() === false) {
+      e.stopPropagation();
+      setValidated(true);
+      return;
+    }
+    setValidated(true);
 
     const { nombre, email, edad, password, tipoUsuario } = formData;
     const parsedEdad = parseInt(edad, 10);
@@ -92,7 +104,7 @@ function Registro() {
           <Card.Title className="text-center mb-4">
             Por favor, ingrese sus datos.
           </Card.Title>
-          <Form id="registroForm" onSubmit={annadeUsuario}>
+          <Form noValidate validated={validated} onSubmit={annadeUsuario}>
             <Form.Group className="mb-3" controlId="nombre">
               <Form.Label>Nombre</Form.Label>
               <Form.Control
@@ -104,6 +116,9 @@ function Registro() {
                   setFormData({ ...formData, nombre: e.target.value })
                 }
               />
+              <Form.Control.Feedback type="invalid">
+                Por favor, ingresa tu nombre.
+              </Form.Control.Feedback>
               <Form.Text className="text-muted">
                 Introduce tu nombre completo.
               </Form.Text>
@@ -120,9 +135,9 @@ function Registro() {
                   setFormData({ ...formData, email: e.target.value })
                 }
               />
-              <Form.Text className="text-muted">
-                No compartiremos tu email con nadie.
-              </Form.Text>
+              <Form.Control.Feedback type="invalid">
+                Por favor, introduce un email válido.
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="edad">
@@ -137,9 +152,9 @@ function Registro() {
                   setFormData({ ...formData, edad: e.target.value })
                 }
               />
-              <Form.Text className="text-muted">
-                Necesitamos saber si eres mayor de edad.
-              </Form.Text>
+              <Form.Control.Feedback type="invalid">
+                Ingresa una edad válida.
+              </Form.Control.Feedback>
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="password">
@@ -154,6 +169,9 @@ function Registro() {
                   setFormData({ ...formData, password: e.target.value })
                 }
               />
+              <Form.Control.Feedback type="invalid">
+                La contraseña debe tener al menos 6 caracteres.
+              </Form.Control.Feedback>
               <Form.Text className="text-muted">
                 La contraseña debe tener al menos 6 caracteres.
               </Form.Text>
@@ -172,6 +190,9 @@ function Registro() {
                 <option value="alumno">Alumno</option>
                 <option value="profesor">Profesor</option>
               </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                Selecciona un tipo de usuario.
+              </Form.Control.Feedback>
             </Form.Group>
 
             <div className="d-flex justify-content-between">

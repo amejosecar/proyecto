@@ -1,4 +1,5 @@
-import { createContext, useState } from "react";
+// src/contexts/AuthProvider.jsx
+import React, { createContext, useState } from "react";
 
 export const AuthContext = createContext();
 
@@ -31,9 +32,8 @@ export const AuthProvider = ({ children }) => {
     setAuthError(""); // Limpia los errores al cerrar sesión
   };
 
-  // Nueva función para actualizar la información del usuario
+  // Función para actualizar la información del usuario
   const updateUser = (updatedData) => {
-    // Combina el estado actual con los datos actualizados
     const updatedUser = { ...authState, ...updatedData };
     setAuthState(updatedUser);
     localStorage.setItem("authState", JSON.stringify(updatedUser));
@@ -54,5 +54,3 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
-
-export default AuthContext;

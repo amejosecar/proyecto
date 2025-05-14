@@ -15,7 +15,7 @@ function anadirTareas() {
 
   return (
     <>
-      <h1 className="text-center mb-4">Listado de Tareas - Americo - React</h1>
+      <h1 className="text-center mb-4">Añadir Tareas - Americo - React</h1>
       <AnadirTarea agregarTarea={agregarTarea} />
       <h2 className="text-center mb-4">Tareas pendientes</h2>
       <MostrarTarea
