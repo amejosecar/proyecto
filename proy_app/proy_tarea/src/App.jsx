@@ -11,7 +11,8 @@ import Registro from "./access/Registro.jsx";
 import OlvidasteContrasena from "./access/OlvidasteContrasena.jsx";
 import VerificarEmail from "./access/VerificarEmail.jsx";
 import Cerrado from "./access/cerrado.jsx";
-import EditarPerfil from "./access/editarPerfil.jsx"; // Ajusta la ruta según corresponda
+import EditarPerfil from "./access/editarPerfil.jsx";
+import RoleProtectedRoute from "./access/RoleProtectedRoute.jsx"; // Componente de ruta protegida
 
 function App() {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -19,15 +20,16 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        {/* Renderizamos el modal globalmente si está activo */}
+        {/* Modal global para editar perfil */}
         {showEditModal && (
           <EditarPerfil
             showModal={showEditModal}
             handleClose={() => setShowEditModal(false)}
           />
         )}
+
         <Routes>
-          {/* Rutas de autenticación */}
+          {/* Rutas públicas (Autenticación) */}
           <Route path="/login" element={<LogIn />} />
           <Route path="/registro" element={<Registro />} />
           <Route
@@ -36,48 +38,64 @@ function App() {
           />
           <Route path="/verificar-email" element={<VerificarEmail />} />
 
-          {/* Rutas de la aplicación principal */}
+          {/* Rutas protegidas por roles */}
           <Route
-            path="/app"
+            path="/App"
             element={
-              <>
-                <BarraNavegacion setShowEditModal={setShowEditModal} />
-                <h2 className="text-center mt-4">Estoy en App</h2>
-              </>
-            }
-          />
-          <Route
-            path="/anadirTareas"
-            element={
-              <>
-                <BarraNavegacion setShowEditModal={setShowEditModal} />
-                <AnadirTareas />
-              </>
-            }
-          />
-          <Route
-            path="/consultarTareas"
-            element={
-              <>
-                <BarraNavegacion setShowEditModal={setShowEditModal} />
-                <ConsultarTareas />
-              </>
-            }
-          />
-          <Route
-            path="/mensajero"
-            element={
-              <>
-                <BarraNavegacion setShowEditModal={setShowEditModal} />
-                <Mensajero />
-              </>
+              <RoleProtectedRoute
+                allowedRoles={["Alumno", "Profesor", "AdminApp"]}
+              >
+                <>
+                  <BarraNavegacion setShowEditModal={setShowEditModal} />
+                  <h2 className="text-center mt-4">Estoy en App</h2>
+                </>
+              </RoleProtectedRoute>
             }
           />
 
-          {/* Redirección a login si se accede a la raíz */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route
+            path="/anadirTareas"
+            element={
+              <RoleProtectedRoute allowedRoles={["Profesor", "AdminApp"]}>
+                <>
+                  <BarraNavegacion setShowEditModal={setShowEditModal} />
+                  <AnadirTareas />
+                </>
+              </RoleProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/consultarTareas"
+            element={
+              <RoleProtectedRoute
+                allowedRoles={["Alumno", "Profesor", "AdminApp"]}
+              >
+                <>
+                  <BarraNavegacion setShowEditModal={setShowEditModal} />
+                  <ConsultarTareas />
+                </>
+              </RoleProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/mensajero"
+            element={
+              <RoleProtectedRoute
+                allowedRoles={["Alumno", "Profesor", "AdminApp"]}
+              >
+                <>
+                  <BarraNavegacion setShowEditModal={setShowEditModal} />
+                  <Mensajero />
+                </>
+              </RoleProtectedRoute>
+            }
+          />
+
+          {/* Otras rutas públicas o de error */}
           <Route path="/cerrado" element={<Cerrado />} />
-          {/* Ruta para páginas no encontradas */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
         </Routes>
       </BrowserRouter>

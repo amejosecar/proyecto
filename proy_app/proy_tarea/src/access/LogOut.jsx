@@ -11,7 +11,7 @@ function LogOut() {
 
   const handleLogout = () => {
     logout();
-    navigate("/cerrado"); // Redirige a la ruta del componente Cerrado
+    navigate("./LogIn"); // Redirige a la ruta del componente Cerrado
   };
 
   return (

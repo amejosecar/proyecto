@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [authError, setAuthError] = useState("");
 
   const login = (userData) => {
+    console.log("Tipo de usuario capturado:", userData.tipoUsuario);
     setAuthState(userData);
     localStorage.setItem("authState", JSON.stringify(userData));
     setAuthError(""); // Limpia cualquier error previo al iniciar sesión

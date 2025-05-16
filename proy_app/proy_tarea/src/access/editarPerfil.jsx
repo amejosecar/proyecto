@@ -1,14 +1,16 @@
 // src/access/editarPerfil.jsx
 import React, { useContext, useEffect, useState } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
-import Mensajes from "../components/mensajes"; // Ajusta la ruta según tu estructura
+import Mensajes from "../components/mensajes";
 import AuthContext from "../context/AuthContext";
+//import "./modal.css";
 
 function EditarPerfil({ showModal, handleClose }) {
   const { nombre, email, edad, password, tipoUsuario, updateUser } =
     useContext(AuthContext);
 
   // Estado inicial del formulario
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const initialFormData = {
     nombre: nombre || "",
     email: email || "",
@@ -231,6 +233,7 @@ function EditarPerfil({ showModal, handleClose }) {
                 <option value="">Selecciona una opción</option>
                 <option value="Alumno">Alumno</option>
                 <option value="Profesor">Profesor</option>
+                <option value="AdminApp">Administrador</option>
               </Form.Select>
             </Form.Group>
           </Row>
@@ -255,17 +258,3 @@ function EditarPerfil({ showModal, handleClose }) {
 }
 
 export default EditarPerfil;
-
-/* 
-Explicación:
-Recuperación del Password Original: Se intenta obtener el password del usuario desde localStorage. Si existe un usuario que coincide con originalEmail y tiene un password definido, se usa ese valor como initialOriginalPassword. Esto se asigna a originalPassword al inicializar el estado, de modo que si el usuario no modifica la contraseña, se utilizará ese valor (en lugar de undefined).
-
-Lógica en el Checkbox "Modificar contraseña": Cuando se desmarca la opción, se fuerza que el formData.password se restablezca al valor de originalPassword. Así, en el handleSubmit, se usará finalPassword como:
-
-js
-const finalPassword = allowPasswordEdit ? password : originalPassword;
-garantizando que si no se modifica, se conserva el password recuperado.
-
-Envió del Formulario: El usuario se actualiza con el finalPassword correspondiente, evitando que se guarde undefined.
-
-Prueba esta versión y revisa en localStorage que el primer elemento conserva el password correcto. ¿Te ayuda esta solución? */

@@ -25,3 +25,16 @@ h2 {
 .card-custom-hover:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+.custom-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: #28a745; /* Color verde para destacar */
+}
+
+.custom-link:hover {
+  text-decoration: underline;
+  color: #218838;
+}
+.custom-link:visited {
+  color: #0056b3; /* Color azul para enlaces visitados */
+}
