@@ -31,7 +31,11 @@ const BarraNavegacion = ({ setShowEditModal }) => {
             ))}
           </Nav>
           <Nav className="ms-auto">
-            <NavDropdown title="Mi perfil" id="perfil-dropdown" align="end">
+            <NavDropdown
+              title={`${tipoUsuario} - Mi perfil 👤`}
+              id="perfil-dropdown"
+              align="end"
+            >
               <NavDropdown.Item onClick={() => setShowEditModal(true)}>
                 Editar mi perfil
               </NavDropdown.Item>

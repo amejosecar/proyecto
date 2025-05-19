@@ -13,6 +13,7 @@ import VerificarEmail from "./access/VerificarEmail.jsx";
 import Cerrado from "./access/cerrado.jsx";
 import EditarPerfil from "./access/editarPerfil.jsx";
 import RoleProtectedRoute from "./access/RoleProtectedRoute.jsx"; // Componente de ruta protegida
+import Usuarios from "./access/Usuario.jsx";
 
 function App() {
   const [showEditModal, setShowEditModal] = useState(false);
@@ -48,6 +49,17 @@ function App() {
                 <>
                   <BarraNavegacion setShowEditModal={setShowEditModal} />
                   <h2 className="text-center mt-4">Estoy en App</h2>
+                  <p className="text-center">
+                    Esta es la página principal de la aplicación.
+                    <br />
+                    Aquí puedes navegar a las diferentes secciones según tu rol.
+                  </p>
+                  <img
+                    src="../src/img/tarea.jpg"
+                    alt="Tarea"
+                    className="img-fluid d-block mx-auto"
+                    style={{ maxWidth: "1149px", width: "100%" }}
+                  />
                 </>
               </RoleProtectedRoute>
             }
@@ -56,7 +68,7 @@ function App() {
           <Route
             path="/anadirTareas"
             element={
-              <RoleProtectedRoute allowedRoles={["Profesor", "AdminApp"]}>
+              <RoleProtectedRoute allowedRoles={["Profesor"]}>
                 <>
                   <BarraNavegacion setShowEditModal={setShowEditModal} />
                   <AnadirTareas />
@@ -68,9 +80,7 @@ function App() {
           <Route
             path="/consultarTareas"
             element={
-              <RoleProtectedRoute
-                allowedRoles={["Alumno", "Profesor", "AdminApp"]}
-              >
+              <RoleProtectedRoute allowedRoles={["Alumno", "Profesor"]}>
                 <>
                   <BarraNavegacion setShowEditModal={setShowEditModal} />
                   <ConsultarTareas />
@@ -92,7 +102,17 @@ function App() {
               </RoleProtectedRoute>
             }
           />
-
+          <Route
+            path="/usuario"
+            element={
+              <RoleProtectedRoute allowedRoles={["AdminApp"]}>
+                <>
+                  <BarraNavegacion setShowEditModal={setShowEditModal} />
+                  <Usuarios />
+                </>
+              </RoleProtectedRoute>
+            }
+          />
           {/* Otras rutas públicas o de error */}
           <Route path="/cerrado" element={<Cerrado />} />
           <Route path="/" element={<Navigate to="/login" replace />} />
